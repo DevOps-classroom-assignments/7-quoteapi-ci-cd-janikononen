@@ -3,6 +3,10 @@ const quotes = require('./quotes');
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Calculator API is running on Render.com' });
+});
+
 app.get('/quote',(req,res)=>{
     const randomIndex = Math.floor(Math.random() * quotes.length);
     res.json({quote: quotes[randomIndex]});
