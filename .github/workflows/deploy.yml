@@ -1,18 +1,14 @@
-name: CD
+name: CD - Deploy on Release
 
 on:
-    workflow_run:
-        workflows: ["CI"]
-        types:
-            - completed
+    release:
+        types: [published]
 
 jobs:
     deploy:
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
-            - name: Deploy
+            - name: Trigger Render Deploy
               env:
                   deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-              run: |
-                  curl "$deploy_url"
+              run: "$deploy_url"
